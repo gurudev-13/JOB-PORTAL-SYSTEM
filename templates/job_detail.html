@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ job.title }} - Job Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Job Portal</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('post_job') }}">Post a Job</a>
+            <a href="{{ url_for('manage_jobs') }}">Manage Jobs</a>
+        </nav>
+    </header>
+    <main>
+        <section class="job-details">
+            <h2>{{ job.title }}</h2>
+            <p><strong>Company:</strong> {{ job.company }}</p>
+            <p><strong>Location:</strong> {{ job.location }}</p>
+            <p><strong>Salary:</strong> {{ job.salary or 'Not disclosed' }}</p>
+            <p><strong>Description:</strong> {{ job.description }}</p>
+            <p><strong>Posted on:</strong> {{ job.posted_at }}</p>
+        </section>
+        <section class="application-form">
+            <h3>Apply for this Job</h3>
+            <form action="{{ url_for('apply_job', job_id=job.id) }}" method="POST">
+                <label for="candidate_name">Full Name:</label>
+                <input type="text" id="candidate_name" name="candidate_name" required>
+                
+                <label for="candidate_email">Email:</label>
+                <input type="email" id="candidate_email" name="candidate_email" required>
+                
+                <label for="resume">Resume (Text):</label>
+                <textarea id="resume" name="resume" required></textarea>
+                
+                <label for="cover_letter">Cover Letter:</label>
+                <textarea id="cover_letter" name="cover_letter"></textarea>
+                
+                <button type="submit" class="btn">Submit Application</button>
+            </form>
+        </section>
+    </main>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

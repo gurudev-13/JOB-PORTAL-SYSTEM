@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Jobs - Job Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Job Portal</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('post_job') }}">Post a Job</a>
+            <a href="{{ url_for('manage_jobs') }}">Manage Jobs</a>
+        </nav>
+    </header>
+    <main>
+        <section class="manage-jobs">
+            <h2>Manage Your Jobs</h2>
+            {% if jobs %}
+                {% for job in jobs %}
+                    <div class="job-card">
+                        <h3>{{ job.title }}</h3>
+                        <p><strong>Company:</strong> {{ job.company }}</p>
+                        <p><strong>Status:</strong> {{ job.status }}</p>
+                        <button class="btn view-applications" data-job-id="{{ job.id }}">View Applications</button>
+                        <div class="applications-list" id="applications-{{ job.id }}"></div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No jobs posted yet.</p>
+            {% endif %}
+        </section>
+    </main>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
